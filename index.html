@@ -1,0 +1,429 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>2026 AI 융합교육</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap">
+<style>
+:root{--bg:#f3f5f7;--hd:#2b3a4a;--col:#e6eaef;--card:#fff;--ink:#1f2933;--mute:#5b6773;--line:#d5dbe2;--acc:#3d6a99;--accink:#fff;--warn:#b5483b;--field:#f8f9fb;--chipbg:#f3e8c8;--chipink:#6b5217;--pendbg:#fbf7ec;--shadow:0 1px 2px rgba(31,41,51,.07),0 2px 8px rgba(31,41,51,.05);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a21;--hd:#10141a;--col:#1d242d;--card:#232c37;--ink:#e6eaef;--mute:#a0abb8;--line:#35404d;--acc:#86aedb;--accink:#0f1a26;--warn:#e58f82;--field:#1a212a;--chipbg:#3a3220;--chipink:#ebd9a6;--pendbg:#2a271d;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151a21;--hd:#10141a;--col:#1d242d;--card:#232c37;--ink:#e6eaef;--mute:#a0abb8;--line:#35404d;--acc:#86aedb;--accink:#0f1a26;--warn:#e58f82;--field:#1a212a;--chipbg:#3a3220;--chipink:#ebd9a6;--pendbg:#2a271d;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 'Noto Sans KR',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;min-height:100vh}
+
+/* 헤더 */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:14px 24px;background:var(--hd);color:#fff}
+h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.02em}
+#who{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:14px;font-weight:500;color:#fff}
+#who .btn.ghost{color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+#who .btn.ghost:hover{background:rgba(255,255,255,.12)}
+#who [role=switch]{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:999px;padding:4px 14px 4px 8px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:none}
+#who [role=switch]::before{content:"";width:30px;height:18px;border-radius:9px;background:radial-gradient(circle at 9px 50%,#fff 6.5px,transparent 7px),rgba(255,255,255,.3)}
+#who [role=switch][aria-checked=true]{border-color:#7cc2a8}
+#who [role=switch][aria-checked=true]::before{background:radial-gradient(circle at 21px 50%,#fff 6.5px,transparent 7px),#5fae92}
+.chip{display:inline-block;background:var(--chipbg);color:var(--chipink);border-radius:20px;padding:1px 10px;font-weight:700;font-size:12.5px;line-height:1.6}
+
+/* 보드 */
+#board{display:flex;gap:18px;padding:22px 24px 36px;overflow-x:auto;align-items:flex-start}
+.col{--sc:var(--acc);flex:1 1 300px;min-width:290px;max-width:440px;background:var(--col);border-radius:14px;border-top:5px solid var(--sc);padding:10px 12px 6px}
+.colh{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 12px;font-size:17px;font-weight:700}
+.colh small{display:inline-block;margin-left:8px;min-width:24px;padding:0 8px;border-radius:12px;background:color-mix(in srgb,var(--sc) 16%,transparent);color:var(--ink);font-size:13px;font-weight:700;text-align:center}
+.colh .row{gap:6px}
+.col .ib[aria-label*="추가"]{background:var(--sc);color:#fff;font-size:22px;font-weight:500;box-shadow:var(--shadow)}
+.col .ib[aria-label*="삭제"]{background:transparent;color:var(--mute);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* 카드 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:border-color .12s,transform .12s}
+.card:hover{border-color:var(--sc,var(--acc));transform:translateY(-1px)}
+.card b{display:block;font-size:16px;font-weight:700;line-height:1.4;word-break:break-word}
+.ex{margin:5px 0 10px;color:var(--mute);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;color:var(--mute)}
+.card .meta{margin-top:8px}
+.meta .who{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:500}
+.av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--sc,var(--acc));color:#fff;font-style:normal;font-size:12px;font-weight:700}
+.card.pend{background:var(--pendbg);border:1px dashed #c9a44a}
+.empty{margin:2px 0 10px;padding:18px 12px;border:1px dashed var(--line);border-radius:10px;font-size:14px;color:var(--mute);text-align:center}
+
+/* 버튼 */
+.ib{display:inline-grid;place-items:center;border:0;background:var(--card);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:19px;line-height:1;cursor:pointer;box-shadow:inset 0 0 0 1px var(--line)}
+.addcol{flex:0 0 160px;border:2px dashed var(--line);background:transparent;color:var(--mute);border-radius:14px;padding:16px;cursor:pointer;font:inherit;font-weight:700}
+.addcol:hover{border-color:var(--acc);color:var(--acc)}
+.btn{border:0;background:var(--acc);color:var(--accink);border-radius:9px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap;flex:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.sm{padding:5px 13px;font-size:13px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.warn{color:var(--warn)}
+.btn.warn-fill{background:var(--warn);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,.card:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+#who button:focus-visible{outline-color:#fff}
+
+/* 팝업 */
+.ov{position:fixed;inset:0;background:rgba(16,22,30,.55);overflow:auto;padding:max(20px,env(safe-area-inset-top,0px)) 12px max(20px,env(safe-area-inset-bottom,0px));z-index:5}
+.sheet{background:var(--card);border-radius:16px;max-width:700px;margin:0 auto;padding:24px 26px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.row{display:flex;align-items:center;gap:8px}
+.row.end{justify-content:flex-end;margin-top:14px}
+.row h2{flex:1;margin:0;font-size:22px;line-height:1.35;word-break:break-word}
+.sp{flex:1}
+.sheet .meta{margin:6px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.para{white-space:pre-wrap;margin:0 0 14px;word-break:break-word;max-width:68ch;line-height:1.8}
+h3{font-size:16px;margin:26px 0 8px}
+.cm{border-top:1px solid var(--line);padding:10px 0;font-size:14.5px}
+.cm b{margin-right:8px}
+.cm button{float:right;border:0;background:none;color:var(--mute);cursor:pointer;font:inherit;font-size:13px;text-decoration:underline}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:9px;padding:10px 13px;margin:8px 0}
+input::placeholder,textarea::placeholder{color:var(--mute);opacity:.85}
+textarea{resize:vertical}
+.cin{display:flex;gap:8px;margin-top:10px}.cin input{margin:0}
+.pb{margin:10px 0}.pb.locked textarea{opacity:.55}
+.pb .row{margin-top:2px}.st{font-size:13px;color:var(--mute)}
+.hint{font-size:14px;color:var(--mute);margin:6px 0 10px}
+.fmt{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
+.fmt select{width:auto;margin:0;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink);font:inherit}
+.tg{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer}
+.tg[aria-pressed=true]{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(22px,env(safe-area-inset-bottom,0px));max-width:calc(100vw - 32px);background:#2b3a4a;color:#fff;padding:11px 18px;border-radius:10px;z-index:9;font-size:14.5px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.note{margin:56px auto;max-width:400px;padding:28px 26px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.note>b{display:block;margin-bottom:10px;font-size:20px}
+.note .row.end{margin-top:16px}
+
+@media (max-width:720px){
+  header{position:static;padding:12px 16px}h1{font-size:20px}
+  #board{padding:16px 16px 28px;gap:12px;scroll-snap-type:x mandatory}
+  .col{flex:0 0 86vw;min-width:0;scroll-snap-align:center}
+  .sheet{padding:20px 18px}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+<header><h1>2026 AI 융합교육</h1><div id="who"></div></header>
+<main id="board" aria-live="polite"></main>
+<div id="ov" class="ov" hidden></div>
+<div id="toast" hidden></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const h=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='class')e.className=v;else if(x.startsWith('on'))e.addEventListener(x.slice(2),v);else if(v!==false&&v!=null)e.setAttribute(x,v)}for(const c of k.flat())if(c!=null&&c!==false)e.append(c);return e};
+const rid=()=>Math.random().toString(36).slice(2,8);
+let db=null,user=null,uid=null,admin=false,canWrite=true;
+let requireApproval=false;
+let posts=[],comments=[],sections=['공지','토론','자료'],names={},openId=null,editId=null,confirmDel=null;
+const dirty={},lastLock={};
+
+const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,3200)};
+const fail=e=>toast('저장하지 못했어요. '+(e&&(e.code==='42501'||/row-level/i.test(e.message||''))?'이 작업을 할 권한이 없어요.':'잠시 후 다시 시도해 주세요.'));
+const nm=i=>!i?'탈퇴한 사용자':i===uid?'나':(names[i]||'탈퇴한 사용자');
+const canEdit=p=>canWrite&&(admin||(uid&&p.authorId===uid));
+const show=(...k)=>{const s=h('div',{class:'sheet',role:'dialog','aria-modal':'true'},...k);$('#ov').replaceChildren(s);$('#ov').hidden=false;return s};
+const closeBtn=(t='×')=>h('button',{class:'ib','aria-label':'닫기',onclick:closeAll},t);
+const FS={s:'13px',m:'15px',l:'18px',xl:'22px'};
+const FF={sans:"'Noto Sans KR',system-ui,sans-serif",serif:"'Noto Serif KR','Batang','Nanum Myeongjo',serif",mono:"ui-monospace,Menlo,Consolas,monospace"};
+function applyFmt(el,f){f=f||{};const s=el.style;s.fontSize=FS[f.size]||FS.m;s.fontWeight=f.bold?'700':'400';s.fontStyle=f.italic?'italic':'normal';s.textAlign=f.align||'left';s.fontFamily=FF[f.font]||FF.sans}
+function fmtBar(f,onchange){
+  const bar=h('div',{class:'fmt',role:'toolbar','aria-label':'글 서식'});
+  const upd=()=>{bar.querySelectorAll('[data-k]').forEach(b=>{const k=b.dataset.k,v=b.dataset.v;const on=v==='1'?!!f[k]:(f[k]||'left')===v;b.setAttribute('aria-pressed',on?'true':'false')});onchange()};
+  const sel=(k,opts,def,label)=>{const s=h('select',{'aria-label':label,onchange:e=>{f[k]=e.target.value;onchange()}},opts.map(([v,t])=>h('option',{value:v},t)));s.value=f[k]||def;return s};
+  const tog=(k,label,title)=>h('button',{type:'button',class:'tg','data-k':k,'data-v':'1',title,'aria-label':title,'aria-pressed':'false',onclick:()=>{f[k]=!f[k];upd()}},label);
+  const al=(v,label)=>h('button',{type:'button',class:'tg','data-k':'align','data-v':v,'aria-pressed':'false',onclick:()=>{f.align=v;upd()}},label);
+  bar.append(sel('size',[['s','작게'],['m','보통'],['l','크게'],['xl','아주 크게']],'m','글자 크기'),sel('font',[['sans','고딕'],['serif','명조'],['mono','고정폭']],'sans','글꼴'),tog('bold','B','굵게'),tog('italic','I','기울임'),al('left','왼쪽'),al('center','가운데'),al('right','오른쪽'));
+  upd();return bar}
+
+async function resolve(){}
+
+const SC=['#4a77a8','#4d7d6b','#7a6a98','#8f7038','#587b88','#96616f'];
+function render(){
+  const pend=posts.filter(p=>p.approved===false).length;
+  $('#who').replaceChildren(...(uid?[h('span',{},names[uid]||'참여자'),admin?h('span',{class:'chip'},'관리자'):null,
+    admin?h('button',{class:requireApproval?'btn sm':'btn sm ghost',role:'switch','aria-checked':requireApproval?'true':'false',title:'켜면 학생이 올린 글은 관리자가 승인해야 보여요',onclick:toggleApproval},'게시물 승인 '+(requireApproval?'ON':'OFF')):null,
+    admin&&pend?h('span',{class:'chip'},'승인 대기 '+pend):null,
+    h('button',{class:'btn sm ghost',onclick:accountSettings},'계정 설정'),h('button',{class:'btn sm ghost',onclick:()=>sb.auth.signOut()},'로그아웃')].filter(Boolean):[]));
+  const b=$('#board');b.replaceChildren();
+  sections.forEach((sec,i)=>{
+    const list=posts.filter(p=>p.section===sec);
+    b.append(h('section',{class:'col','aria-label':sec,style:'--sc:'+SC[i%SC.length]},
+      h('div',{class:'colh'},h('span',{},sec,h('small',{},String(list.length))),
+        h('span',{class:'row'},admin&&sections.length>1?h('button',{class:'ib','aria-label':sec+' 열 삭제',title:'열 삭제',onclick:()=>delSection(sec)},'🗑'):null,canWrite?h('button',{class:'ib','aria-label':sec+' 열에 게시물 추가',onclick:()=>compose(sec)},'+'):null)),
+      list.map(card),
+      list.length?null:h('p',{class:'empty'},'아직 게시물이 없어요. + 버튼으로 첫 글을 올려보세요.')));
+  });
+  if(admin)b.append(h('button',{class:'addcol',onclick:addSection},'+ 열 추가'));
+  if(openId)renderDetail();
+  if(editId)renderEdit();
+}
+
+function card(p){
+  const n=comments.filter(c=>c.postId===p.id).length;
+  const open=()=>{openId=p.id;renderDetail()};
+  const ex=(p.paras||[]).map(x=>x.text).join(' ').slice(0,90);
+  return h('div',{class:p.approved===false?'card pend':'card',role:'button',tabindex:'0',onclick:open,onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}}},
+    h('b',{},p.title||'제목 없음'),ex?h('p',{class:'ex'},ex):null,
+    h('div',{class:'meta'},h('span',{class:'who'},h('i',{class:'av'},(nm(p.authorId)||'?').charAt(0)),nm(p.authorId)),n?h('span',{},'댓글 '+n):null,p.approved===false?h('span',{class:'chip'},'승인 대기'):null));
+}
+
+function compose(sec){
+  if(!uid)return toast('로그인 정보를 확인할 수 없어요.');
+  const t=h('input',{placeholder:'제목',maxlength:'100','aria-label':'제목'});
+  const b=h('textarea',{rows:'8',placeholder:'내용을 입력하세요. 빈 줄로 문단을 나눠요.','aria-label':'내용'});
+  const f={size:'m',font:'sans',align:'left'};applyFmt(b,f);
+  show(h('div',{class:'row'},h('h2',{},sec+' 열에 게시'),closeBtn()),t,fmtBar(f,()=>applyFmt(b,f)),b,
+    h('div',{class:'row end'},h('button',{class:'btn',onclick:async()=>{
+      const paras=b.value.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).map(text=>({id:rid(),text}));
+      if(!t.value.trim()&&!paras.length)return toast('제목이나 내용을 입력해 주세요.');
+      try{await db.collection('posts').add({title:t.value.trim()||'제목 없음',section:sec,authorId:uid,paras:paras.length?paras:[{id:rid(),text:''}],locks:{},fmt:{...f},createdAt:Date.now(),updatedAt:Date.now()});closeAll();toast(requireApproval&&!admin?'올렸어요. 관리자가 승인하면 다른 사람에게 보여요.':'게시했어요.')}catch(e){fail(e)}
+    }},'게시하기')));
+  t.focus();
+}
+
+function delSection(sec){
+  const ps=posts.filter(p=>p.section===sec);
+  show(h('div',{class:'row'},h('h2',{},'열 삭제'),closeBtn()),
+    h('p',{},'‘'+sec+'’ 열을 삭제할까요?'+(ps.length?' 이 열의 게시물 '+ps.length+'개와 댓글도 함께 삭제되며 되돌릴 수 없어요.':'')),
+    h('div',{class:'row end'},h('button',{class:'btn ghost',onclick:closeAll},'취소'),
+      h('button',{class:'btn ghost warn',onclick:async()=>{
+        try{
+          for(const p of ps){
+            
+            await db.doc('posts/'+p.id).delete();
+          }
+          await db.doc('meta/board').set({sections:sections.filter(s=>s!==sec)});
+          closeAll();toast('열을 삭제했어요.');
+        }catch(e){fail(e)}
+      }},'삭제')));
+}
+
+function addSection(){
+  const t=h('input',{placeholder:'열 이름',maxlength:'30','aria-label':'열 이름'});
+  show(h('div',{class:'row'},h('h2',{},'열 추가'),closeBtn()),t,
+    h('div',{class:'row end'},h('button',{class:'btn',onclick:async()=>{
+      const v=t.value.trim();if(!v||sections.includes(v))return toast('새 이름을 입력해 주세요.');
+      try{await db.doc('meta/board').set({sections:[...sections,v]});closeAll()}catch(e){fail(e)}
+    }},'추가하기')));
+  t.focus();
+}
+
+function renderDetail(){
+  const p=posts.find(x=>x.id===openId);if(!p){closeAll();return}
+  const old=$('#cin'),val=old?old.value:'',foc=old&&document.activeElement===old;
+  const cs=comments.filter(c=>c.postId===p.id);
+  const cin=h('input',{id:'cin',placeholder:'댓글을 입력하세요','aria-label':'댓글',maxlength:'500',onkeydown:e=>{if(e.key==='Enter')send()}});
+  cin.value=val;
+  const send=async()=>{
+    const v=cin.value.trim();if(!v)return;if(!uid)return toast('로그인 정보를 확인할 수 없어요.');
+    try{await db.collection('comments').add({postId:p.id,text:v,authorId:uid,createdAt:Date.now()});cin.value=''}catch(e){fail(e)}
+  };
+  show(
+    h('div',{class:'row'},h('h2',{},p.title||'제목 없음'),closeBtn()),
+    h('div',{class:'meta'},h('span',{},nm(p.authorId)),h('span',{},p.section)),
+    (p.paras||[]).filter(x=>x.text).map(x=>{const e=h('p',{class:'para'},x.text);applyFmt(e,p.fmt);return e}),
+    p.approved===false?(admin
+      ?h('div',{class:'row'},h('span',{class:'hint'},'승인 대기 중인 글이에요.'),h('button',{class:'btn',onclick:()=>approvePost(p)},'승인하기'))
+      :h('p',{class:'hint'},'관리자 승인을 기다리는 중이에요. 승인되기 전에는 나와 관리자만 볼 수 있어요.')):null,
+    canEdit(p)?h('div',{class:'row'},
+      h('button',{class:'btn',onclick:()=>{openId=null;editId=p.id;renderEdit()}},'수정'),
+      h('button',{class:'btn ghost warn',onclick:()=>{if(confirmDel===p.id)delPost(p);else{confirmDel=p.id;renderDetail()}}},confirmDel===p.id?'정말 삭제할까요?':'삭제')):null,
+    h('h3',{},'댓글 '+cs.length),
+    cs.map(c=>h('div',{class:'cm'},
+      (canWrite&&(c.authorId===uid||admin))?h('button',{'aria-label':'댓글 삭제',onclick:()=>db.doc('comments/'+c.id).delete().catch(fail)},'삭제'):null,
+      h('b',{},nm(c.authorId)),h('span',{},c.text))),
+    canWrite?h('div',{class:'cin'},cin,h('button',{class:'btn',onclick:send},'등록')):h('p',{class:'hint'},'읽기 전용이에요. 댓글은 쓰기 권한이 있는 참여자만 남길 수 있어요.'));
+  if(foc)cin.focus();
+}
+
+function accountSettings(){
+  const ok=h('input',{placeholder:'확인을 위해 “삭제”를 입력하세요','aria-label':'삭제 확인 입력',autocomplete:'off'});
+  const del=h('button',{class:'btn warn-fill',disabled:true,onclick:deleteAccount},'계정 삭제');
+  ok.addEventListener('input',()=>{del.disabled=ok.value.trim()!=='삭제'});
+  show(h('div',{class:'row'},h('h2',{},'계정 설정'),closeBtn()),
+    h('div',{class:'meta'},h('span',{class:'who'},h('i',{class:'av'},(names[uid]||'?').charAt(0)),names[uid]||'참여자'),admin?h('span',{class:'chip'},'관리자'):null),
+    h('h3',{},'계정 삭제'),
+    h('p',{class:'hint'},'계정을 삭제하면 되돌릴 수 없어요. 내가 쓴 글과 댓글은 지워지지 않고 작성자가 “탈퇴한 사용자”로 표시돼요.'+(admin?' 마지막 남은 관리자 계정은 삭제할 수 없어요.':'')),
+    ok,h('div',{class:'row end'},h('button',{class:'btn ghost',onclick:closeAll},'취소'),del));
+}
+async function deleteAccount(){
+  try{
+    const{error}=await sb.rpc('delete_my_account');if(error)throw error;
+    closeAll();await sb.auth.signOut({scope:'local'});toast('계정을 삭제했어요.');
+  }catch(e){
+    console.error(e);const m=(e&&e.message)||'';
+    toast(/last_admin/.test(m)?'마지막 관리자 계정은 삭제할 수 없어요. 다른 관리자를 먼저 만들어 주세요.'
+      :/delete_my_account|schema cache|function/i.test(m)?'setup.sql을 다시 Run 해 주세요. (계정 삭제 기능이 아직 없어요)'
+      :'계정을 삭제하지 못했어요: '+(m||'알 수 없는 오류'));
+  }
+}
+async function toggleApproval(){
+  const next=!requireApproval;
+  try{await db.doc('meta/board').set({requireApproval:next});requireApproval=next;render();
+    toast(next?'승인제를 켰어요. 이제 학생 글은 승인 후에 보여요.':'승인제를 껐어요. 이미 대기 중인 글은 직접 승인해 주세요.')}catch(e){console.error(e);toast(/require_approval|column|schema cache/i.test(e&&e.message||'')?'setup.sql을 다시 Run 해 주세요. (승인제 컬럼이 아직 없어요)':'승인제를 바꾸지 못했어요: '+((e&&e.message)||'알 수 없는 오류'))}
+}
+async function approvePost(p){
+  try{await db.doc('posts/'+p.id).update({approved:true});toast('승인했어요.')}catch(e){fail(e)}
+}
+
+async function delPost(p){
+  try{
+    
+    await db.doc('posts/'+p.id).delete();
+    confirmDel=null;closeAll();toast('삭제했어요.');
+  }catch(e){fail(e)}
+}
+
+/* ---- 문단별 수정 ---- */
+function lock(p,pid){
+  if(Date.now()-(lastLock[pid]||0)<30000)return;lastLock[pid]=Date.now();
+  db.doc('posts/'+p.id).update({locks:{[pid]:{uid,at:Date.now()}}}).catch(()=>{});
+}
+async function release(p){
+  const o={};for(const k in (p.locks||{}))if(p.locks[k].uid===uid)o[k]={uid:null,at:0};
+  if(Object.keys(o).length)try{await db.doc('posts/'+p.id).update({locks:o})}catch(e){}
+}
+async function mutate(p,fn,msg){
+  try{
+    const fresh=(await db.doc('posts/'+p.id).get()).data();if(!fresh)return toast('이미 삭제된 글이에요.');
+    await db.doc('posts/'+p.id).update({paras:fn(fresh.paras||[]),updatedAt:Date.now()});
+    if(msg)toast(msg);
+  }catch(e){fail(e)}
+}
+async function savePara(p,pid){
+  const v=dirty[pid];if(v===undefined)return toast('바뀐 내용이 없어요.');
+  await mutate(p,ps=>ps.map(x=>x.id===pid?{id:pid,text:v}:x),'문단을 저장했어요.');
+  delete dirty[pid];
+  db.doc('posts/'+p.id).update({locks:{[pid]:{uid:null,at:0}}}).catch(()=>{});
+}
+const delPara=(p,pid)=>{delete dirty[pid];return mutate(p,ps=>ps.filter(x=>x.id!==pid),'문단을 삭제했어요.')};
+async function saveFmt(p){try{await db.doc('posts/'+p.id).update({fmt:{...dirty.fmt},updatedAt:Date.now()});toast('서식을 저장했어요.')}catch(e){fail(e)}}
+async function saveTitle(p){
+  const v=(dirty.title||'').trim();if(!v)return toast('제목을 입력해 주세요.');
+  try{await db.doc('posts/'+p.id).update({title:v,updatedAt:Date.now()});delete dirty.title;toast('제목을 저장했어요.')}catch(e){fail(e)}
+}
+function finishEdit(p){
+  release(p);Object.keys(dirty).forEach(k=>delete dirty[k]);
+  editId=null;openId=p.id;renderDetail();
+}
+function renderEdit(){
+  const p=posts.find(x=>x.id===editId);if(!p){closeAll();return}
+  const act=document.activeElement,ap=act&&act.dataset&&act.dataset.pid,ss=act&&act.selectionStart;
+  const tin=h('input',{value:dirty.title!==undefined?dirty.title:(p.title||''),maxlength:'100','aria-label':'제목',oninput:e=>dirty.title=e.target.value});
+  const ps=p.paras||[];const fm=dirty.fmt||(dirty.fmt={size:'m',font:'sans',align:'left',...(p.fmt||{})});const live=()=>document.querySelectorAll('.pb textarea').forEach(t=>applyFmt(t,fm));
+  const blocks=ps.map((x,i)=>{
+    const lk=(p.locks||{})[x.id];
+    const other=!!(lk&&lk.uid&&lk.uid!==uid&&Date.now()-lk.at<120000);
+    const st=h('span',{class:'st'},other?nm(lk.uid)+'님이 편집 중이에요':(dirty[x.id]!==undefined?'저장 전':''));
+    const ta=h('textarea',{rows:'4','data-pid':x.id,disabled:other,'aria-label':'문단 '+(i+1),
+      oninput:e=>{dirty[x.id]=e.target.value;st.textContent='저장 전';lock(p,x.id)},onfocus:()=>lock(p,x.id)});
+    ta.value=dirty[x.id]!==undefined?dirty[x.id]:x.text;applyFmt(ta,fm);
+    return h('div',{class:'pb'+(other?' locked':'')},ta,h('div',{class:'row'},st,h('span',{class:'sp'}),
+      h('button',{class:'btn sm',disabled:other,onclick:()=>savePara(p,x.id)},'문단 저장'),
+      h('button',{class:'btn sm ghost',disabled:other||ps.length<2,onclick:()=>delPara(p,x.id)},'삭제')));
+  });
+  show(
+    h('div',{class:'row'},h('h2',{},'글 수정'),h('button',{class:'btn',onclick:()=>finishEdit(p)},'완료')),
+    h('p',{class:'hint'},'문단마다 저장해요. 다른 사람이 편집 중인 문단은 잠겨 있고, 저장하면 모두에게 반영돼요.'),
+    h('div',{class:'row'},tin,h('button',{class:'btn sm',onclick:()=>saveTitle(p)},'제목 저장')),
+    h('div',{class:'row'},fmtBar(fm,live),h('span',{class:'sp'}),h('button',{class:'btn sm',onclick:()=>saveFmt(p)},'서식 저장')),
+    blocks);
+  if(ap){const t=document.querySelector('[data-pid="'+ap+'"]');if(t&&!t.disabled){t.focus();if(ss!=null)try{t.setSelectionRange(ss,ss)}catch(e){}}}
+}
+
+function closeAll(){
+  const p=posts.find(x=>x.id===editId);
+  if(p)release(p);
+  editId=null;openId=null;confirmDel=null;
+  Object.keys(dirty).forEach(k=>delete dirty[k]);
+  $('#ov').hidden=true;$('#ov').replaceChildren();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#ov').hidden)closeAll()});
+
+/* ---- Supabase 연결 설정 (여기만 수정하세요) ---- */
+const CFG={url:'https://zoxocdasjfacjfxczdyr.supabase.co',key:'sb_publishable_lnmTsHh55MNBKjbXrE2WVw_n8AUuwU5',domain:'aiedu.kr'};
+let sb=null,timer=null;
+const camel=s=>s.replace(/_([a-z])/g,(_,c)=>c.toUpperCase()),snake=s=>s.replace(/[A-Z]/g,c=>'_'+c.toLowerCase());
+const mapK=(o,f)=>Object.fromEntries(Object.entries(o).map(([k,v])=>[f(k),v]));
+const tbl=n=>n==='meta'?'board_meta':n;
+function ref(path){
+  const[t,id0]=path.split('/'),T=tbl(t),id=t==='meta'?1:id0;
+  return{
+    async get(){const{data,error}=await sb.from(T).select('*').eq('id',id).maybeSingle();if(error)throw error;return{data:()=>data?mapK(data,camel):null}},
+    async update(d){d=mapK(d,snake);
+      if(d.locks){const{data}=await sb.from(T).select('locks').eq('id',id).maybeSingle();d.locks={...((data&&data.locks)||{}),...d.locks}}
+      const{error}=await sb.from(T).update(d).eq('id',id);if(error)throw error},
+    async set(d){d=mapK(d,snake);const{error}=await sb.from(T).upsert({id,...d});if(error)throw error},
+    async delete(){const{error}=await sb.from(T).delete().eq('id',id);if(error)throw error}};
+}
+const dbShim={doc:ref,collection:n=>({async add(d){const{error}=await sb.from(tbl(n)).insert(mapK(d,snake));if(error)throw error}})};
+
+async function loadAll(){
+  const r=await Promise.all([
+    sb.from('board_meta').select('sections,require_approval').eq('id',1).maybeSingle(),
+    sb.from('posts').select('*').order('created_at',{ascending:true}),
+    sb.from('comments').select('*').order('created_at',{ascending:true}),
+    sb.from('board_profiles').select('id,name')]);
+  const bad=r.find(x=>x.error);
+  if(bad){console.error(bad.error);const e=bad.error,m=(e.message||'')+' '+(e.code||'');
+    return toast(/relation|does not exist|42P01|schema cache|PGRST205/i.test(m)?'테이블이 없어요. 처음 설정 SQL(board 테이블 생성)을 먼저 Run 해 주세요.'
+      :/JWT|apikey|invalid api|401|PGRST30/i.test(m)?'API 키가 올바르지 않아요. Supabase의 anon(public) key를 다시 넣어 주세요.'
+      :/permission|policy|42501/i.test(m)?'권한 오류예요. 처음 설정 SQL의 정책(policy) 부분을 다시 Run 해 주세요. ('+m.trim()+')'
+      :'데이터를 불러오지 못했어요: '+m.trim())}
+  const m=r[0].data;requireApproval=!!(m&&m.require_approval);if(m&&m.sections&&m.sections.length)sections=m.sections;
+  posts=r[1].data.map(d=>mapK(d,camel));comments=r[2].data.map(d=>mapK(d,camel));
+  names={};r[3].data.forEach(p=>names[p.id]=p.name);
+  render();
+}
+const toEmail=v=>v.includes('@')?v:v+'@'+CFG.domain;
+function loginView(mode){
+  closeAll();$('#who').replaceChildren();
+  const up=mode==='up';
+  const id=h('input',{placeholder:'아이디 (영문 소문자·숫자)',autocomplete:'username','aria-label':'아이디',autocapitalize:'none'});
+  const nmI=up?h('input',{placeholder:'표시 이름 (예: 홍길동)',maxlength:'20','aria-label':'표시 이름'}):null;
+  const codeI=up?h('input',{placeholder:'인증 코드 (학생 / 선생님)',inputmode:'numeric',maxlength:'8',autocomplete:'off','aria-label':'인증 코드'}):null;
+  const pw=h('input',{type:'password',placeholder:up?'비밀번호 (6자 이상)':'비밀번호',autocomplete:up?'new-password':'current-password','aria-label':'비밀번호',onkeydown:e=>{if(e.key==='Enter')go()}});
+  const go=async()=>{
+    const v=id.value.trim().toLowerCase();
+    if(!v||!pw.value)return toast('아이디와 비밀번호를 입력해 주세요.');
+    if(up){
+      if(!/^[a-z0-9_]{3,20}$/.test(v))return toast('아이디는 영문 소문자·숫자·_ 3~20자로 입력해 주세요.');
+      if(pw.value.length<6)return toast('비밀번호는 6자 이상이어야 해요.');
+      const code=codeI.value.trim();
+      if(!code)return toast('인증 코드를 입력해 주세요.');
+      const{data,error}=await sb.auth.signUp({email:toEmail(v),password:pw.value,options:{data:{name:nmI.value.trim()||v,code}}});
+      if(error){const m=error.message||'';return toast(/registered|exists/i.test(m)?'이미 사용 중인 아이디예요.':/database error|signup_code|코드/i.test(m)?'인증 코드가 올바르지 않아요.':'가입 오류: '+m)}
+      if(!data.session){
+        const r=await sb.auth.signInWithPassword({email:toEmail(v),password:pw.value});
+        if(r.error)toast('가입은 됐지만 로그인하지 못했어요. 아래 로그인 화면에서 다시 시도해 주세요.');
+      }
+      return;
+    }
+    const{error}=await sb.auth.signInWithPassword({email:toEmail(v),password:pw.value});
+    if(error){const m=error.message||'';toast(/not confirmed/i.test(m)?'이메일 확인이 안 된 계정이에요. 새로 가입하거나 Supabase에서 Confirm email을 꺼 주세요.':/invalid login/i.test(m)?'아이디 또는 비밀번호가 올바르지 않아요.':'로그인 오류: '+m)}
+  };
+  $('#board').replaceChildren(h('div',{class:'note'},h('b',{},up?'계정 만들기':'로그인'),id,nmI,pw,codeI,
+    h('div',{class:'row end'},h('button',{class:'btn ghost',onclick:()=>loginView(up?'in':'up')},up?'로그인으로':'계정 만들기'),h('button',{class:'btn',onclick:go},up?'가입하기':'로그인'))));
+  id.focus();
+}
+async function enter(s){
+  sb.removeAllChannels();
+  if(!s){uid=null;admin=false;posts=[];comments=[];names={};return loginView()}
+  uid=s.user.id;
+  const{data:me}=await sb.from('board_profiles').select('name,role').eq('id',uid).maybeSingle();
+  if(!me)toast('계정 프로필이 없어요. 관리자에게 문의해 주세요.');
+  admin=!!me&&me.role==='admin';
+  await loadAll();
+  const ch=sb.channel('board');
+  ['posts','comments','board_meta','board_profiles'].forEach(t=>ch.on('postgres_changes',{event:'*',schema:'public',table:t},()=>{clearTimeout(timer);timer=setTimeout(loadAll,250)}));
+  ch.subscribe();
+}
+(async()=>{
+  if(!window.supabase||CFG.url.startsWith('YOUR')){
+    $('#board').replaceChildren(h('div',{class:'note'},h('b',{},'Supabase 설정이 필요해요.'),h('p',{},'파일 안의 CFG에 Supabase 프로젝트 URL과 anon key를 입력해 주세요.')));return;
+  }
+  CFG.url=CFG.url.trim();CFG.key=CFG.key.trim();
+  if(!/^https:\/\/[\x21-\x7E]+$/.test(CFG.url)||!/^[\x21-\x7E]+$/.test(CFG.key)){
+    $('#board').replaceChildren(h('div',{class:'note'},h('b',{},'CFG 값에 사용할 수 없는 문자가 있어요.'),h('p',{},'URL은 https://로 시작하고, key는 영문·숫자·기호만 있어야 해요. 한글, 설명 문구, 말줄임표(...), 둥근 따옴표가 섞이지 않았는지 확인하고, Supabase에서 다시 복사해 붙여넣어 주세요.')));return;
+  }
+  sb=supabase.createClient(CFG.url,CFG.key);db=dbShim;
+  const{data}=await sb.auth.getSession();
+  let cur=data.session?data.session.user.id:null;
+  enter(data.session);
+  sb.auth.onAuthStateChange((ev,s)=>{const id=s?s.user.id:null;if(id!==cur){cur=id;setTimeout(()=>enter(s),0)}});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&uid)loadAll()});
+})();
+</script>
+
+</body></html>
